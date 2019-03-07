@@ -118,14 +118,33 @@
           </td>
 
           <td>
-              <a>
-               <select name="venue_id" id="venue_id" class="form-control form-control-sm mr-sm-1">
+              <form action="/create_bookmark" class="form-inline" method="post">
+                
+                <input type="hidden" name="dish_id" value="<%= dish.id %>">
+                <input type="hidden" name="user_id" value="<%= current_user.id %>">
+
+                
+                 <select name="venue_id" id="venue_id" class="form-control form-control-sm mr-sm-1">
                  <option value="">Choose a venue...</option>
                  <% Venue.all.each do |venue| %>
+                 
+                                 <!-- Label and input for venue_id -->
+                <label for="venue_id" class="control-label sr-only">
+                  Venue
+                </label>
+
+                 
                  <option value="<%= venue.id %>"><%= venue.name %></option>
                 <% end %>
-              </select>
-              </a>
+               </select>
+              
+              
+              
+                <button class="btn btn-primary btn-sm">
+                  <i class="fa fa-heart"></i>
+                </button>
+            </form>
+
 
           </td>
 
