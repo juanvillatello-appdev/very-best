@@ -1,8 +1,4 @@
 <div class="page-header">
-  <h1>
-    Dishes
-    <a href="/dishes/new" class="btn btn-lg btn-success">New Dish</a>
-  </h1>
 </div><div class="row mb-1">
   <div class="col-md-12">
     <%= search_form_for @q, :class => "collapse", :id => "dishes_filters" do |f| %>
@@ -113,3 +109,152 @@
     <%= paginate @dishes, theme: 'twitter-bootstrap-4' %>
   </div>
 </div>
+
+<div class="container mt-4">
+
+
+    <div class="row mt-2 mb-1">
+  <div class="col-md-3">
+    <form class="collapse" id="dishes_filters" action="/dishes" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+      <p class="lead">Narrow results:</p>
+
+      <div class="form-group">
+        <label for="q_name_cont">Name contains</label>
+        <input class="form-control" placeholder="Name contains" type="text" name="q[name_cont]" id="q_name_cont">
+      </div>
+
+      <div class="form-group">
+        <label for="q_cuisine_id_eq_any">Cuisine</label>
+
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="299">
+              American
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="298">
+              Breakfast
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="305">
+              Classic
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="304">
+              Dessert
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="300">
+              Drink
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="303">
+              French
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="308">
+              Indian
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="301">
+              Italian
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="306">
+              Japanese
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="302">
+              Salad
+            </label>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="307">
+              Seafood
+            </label>
+          </div>
+      </div>
+
+      <input type="submit" name="commit" value="Search" class="btn btn-primary btn-block mb-1" data-disable-with="Search">
+
+      <a href="/dishes" class="btn btn-secondary btn-block mb-1">Clear filters</a>
+</form>
+    <a class="btn btn-secondary btn-block mb-1" data-toggle="collapse" href="#dishes_filters">
+      Show Filters
+    </a>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <table class="table table-striped table-hover">
+        <tbody><tr>
+          <th>
+            The very best...
+          </th>
+
+          <th>
+            is at...
+          </th>
+
+          <th>
+
+          </th>
+        </tr>
+        <% @dishes.each do |dish| %>
+        <tr>
+          <td>
+            <a href="/dishes/<%= dish.id %>">
+              <%= dish.name %>
+            </a>
+          </td>
+
+          <td>
+              <a href="/venues/">
+                Place Holder
+              </a>
+
+          </td>
+
+          <td class="text-right">
+            <% if dish.cuisine.present? %>
+            <span class="badge badge-primary">
+              <%= dish.cuisine.name %>
+            </span>
+            <% end %>
+          </td>
+          <% end %>
+        </tr>
+      </tbody></table>
+
+      <div class="card-footer text-center">
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <a href="/venues/new" class="btn btn-block btn-success">
+      Add a new venue
+    </a>
+  </div>
+</div>
+
