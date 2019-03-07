@@ -2,92 +2,36 @@
 
 <div class="container mt-4">
 
-
     <div class="row mt-2 mb-1">
     <div class="col-md-3">
-    <form class="collapse" id="dishes_filters" action="/dishes" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="✓">
+    <%= search_form_for @q, :class => "collapse", :id => "dishes_filters" do |f| %>
       <p class="lead">Narrow results:</p>
 
       <div class="form-group">
-        <label for="q_name_cont">Name contains</label>
-        <input class="form-control" placeholder="Name contains" type="text" name="q[name_cont]" id="q_name_cont">
+        <%= f.label :name_cont, "Name contains" %>
+        <%= f.text_field :name_cont, :class => "form-control", :placeholder => "Name contains" %>
       </div>
 
       <div class="form-group">
         <label for="q_cuisine_id_eq_any">Cuisine</label>
-
+      
+        <% Cuisine.all.each do |cuisine| %>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="299">
-              American
+              <input type="checkbox" name="cuisine_id" id="cuisine_id" value="<%= cuisine.id %>">
+              <%= cuisine.name %>
             </label>
           </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="298">
-              Breakfast
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="305">
-              Classic
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="304">
-              Dessert
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="300">
-              Drink
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="303">
-              French
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="308">
-              Indian
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="301">
-              Italian
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="306">
-              Japanese
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="302">
-              Salad
-            </label>
-          </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="q[cuisine_id_eq_any][]" id="q_cuisine_id_eq_any_" value="307">
-              Seafood
-            </label>
-          </div>
+        <% end %>
       </div>
 
-      <input type="submit" name="commit" value="Search" class="btn btn-primary btn-block mb-1" data-disable-with="Search">
+    <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
 
       <a href="/dishes" class="btn btn-secondary btn-block mb-1">Clear filters</a>
-</form>
+    <% end %>
+    
+    
+    
     <a class="btn btn-secondary btn-block mb-1" data-toggle="collapse" href="#dishes_filters">
       Show Filters
     </a>
