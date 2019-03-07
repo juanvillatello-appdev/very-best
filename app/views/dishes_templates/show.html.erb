@@ -80,10 +80,7 @@
       <input type="hidden" name="user_id" value="<%= current_user.id %>">
 
       <!-- Label and input for notes -->
-      <div class="form-group">
-        <label for="notes" class="control-label">
-          Notes
-        </label>
+      <input type="hidden" name="notes" value="">
 
         <textarea id="notes" name="notes" placeholder="Notes" class="form-control" rows="3"></textarea>
       </div>
@@ -158,3 +155,99 @@
     </ul>
   </div>
 </div>
+ jhfhgf
+
+<div class="container mt-4">
+      
+
+
+    <div class="row mt-2 justify-content-md-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">
+          You loved the <%= @dish.name %> at...
+
+            <div class="badge badge-primary float-right">
+              <%= @dish.cuisine.name %>
+            </div>
+        </h4>
+      </div>
+
+      <ul class="list-group">
+        <li class="list-group-item">
+          <form action="/create_bookmark" class="form-inline float-left" method="post">
+            
+            <input type="hidden" name="notes" value="Notes">
+
+            <input type="hidden" name="dish_id" value="<%= @dish.id %>">
+            <input type="hidden" name="user_id" value="<%= current_user.id %>">
+            
+            <!-- Label and input for venue_id -->
+            <div class="form-group mr-sm-1">
+              <label for="venue_id" class="control-label sr-only">
+                Venue
+              </label>
+
+              <select name="venue_id" id="venue_id" class="form-control form-control-sm mr-sm-1">
+                 <option value="">Choose a venue...</option>
+                 <% Venue.all.each do |venue| %>
+                 
+                                 <!-- Label and input for venue_id -->
+                <label for="venue_id" class="control-label sr-only">
+                  Venue
+                </label>
+
+                 
+                 <option value="<%= venue.id %>"><%= venue.name %></option>
+                <% end %>
+               </select>
+            </div>
+
+            <button class="btn btn-primary btn">
+              <i class="fa fa-heart"></i>
+            </button>
+          </form>
+          <small class="float-right text-muted">
+            right now
+          </small>
+        </li>
+
+
+
+          <% @dish.bookmarks.where(user_id: current_user.id).each do |bookmark|%>
+          <li class="list-group-item">
+            <p>
+              <a href="/venues/<%= bookmark.venue.id %>">
+                <%= bookmark.venue.name %>
+              </a>
+
+              <small class="float-right text-muted">
+                <%= time_ago_in_words(bookmark.created_at) %> ago
+
+                <a href="/bookmarks/<%= bookmark.id %>/edit">
+                  <i class="fa fa-fw fa-edit"></i>
+                </a>
+
+                <a href="/delete_bookmark/<%= bookmark.id %>">
+                  <i class="fa fa-fw fa-trash-o"></i>
+                </a>
+              </small>
+            </p>
+          </li>
+          <% end %>
+          
+          
+          
+      </ul>
+
+      <div class="card-footer text-center">
+        <a href="/dishes" class="btn btn-block btn-secondary">
+          <i class="fa fa-chevron-left"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
