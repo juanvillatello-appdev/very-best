@@ -18,7 +18,7 @@
         <% Cuisine.all.each do |cuisine| %>
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="cuisine_id" id="cuisine_id" value="<%= cuisine.id %>">
+              <%= check_box_tag('q[cuisine_id_eq_any][]', cuisine.id, (true if @q.cuisine_id_eq_any.try(:include?, cuisine.id))) %>
               <%= cuisine.name %>
             </label>
           </div>

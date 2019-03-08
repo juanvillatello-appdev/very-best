@@ -26,11 +26,6 @@
     
     <a href="/venues" class="btn btn-secondary btn-block mb-1">Clear filters</a>
     <% end %>
-    
-
-    
- 
-
     <a class="btn btn-secondary btn-block mb-1" data-toggle="collapse" href="#venues_filters">
       Show Filters
     </a>
@@ -43,12 +38,12 @@
           Places you've bookmarked
         </h4>
       </div>
-
       <div class="card-body">
         <div id="location_map" style="height: 480px;"></div>
       </div>
+      <% current_user.bookmarked_venues.each do |venue| %>
       <ul class="list-group list-group-flush">
-        <% current_user.bookmarked_venues.each do |venue| %>  
+          
           <li class="list-group-item">
             <a href="/venues/<%= venue.id %>">
               <%= venue.name %>
@@ -59,6 +54,7 @@
               <% end %>
             </small>
           </li>
+
           <% end %>
       </ul>
 
