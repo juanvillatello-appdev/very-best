@@ -50,7 +50,7 @@
 
           </th>
         </tr>
-        <% Dish.all.order(name: :asc).each do |dish| %>
+        <% @dishes.order(name: :asc).each do |dish| %>
         <tr>
           <td>
             <a href="/dishes/<%= dish.id %>">
