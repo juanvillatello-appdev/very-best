@@ -29,9 +29,6 @@
 
       <a href="/dishes" class="btn btn-secondary btn-block mb-1">Clear filters</a>
     <% end %>
-    
-    
-    
     <a class="btn btn-secondary btn-block mb-1" data-toggle="collapse" href="#dishes_filters">
       Show Filters
     </a>
@@ -57,11 +54,19 @@
         <tr>
           <td>
             <a href="/dishes/<%= dish.id %>">
+          
               <%= dish.name %>
             </a>
           </td>
 
           <td>
+            <% if  Bookmark.where(user_id: current_user.id, dish_id: dish.id).present? %> 
+             <a href="/venues/<%= Bookmark.where(user_id: current_user.id, dish_id: dish.id).order(updated_at: :desc).first.venue_id %> ">
+                
+                <%= Venue.find(Bookmark.where(user_id: current_user.id, dish_id: dish.id).order(updated_at: :desc).first.venue_id).name %>    
+            </a>
+            
+            <% else %>
               <form action="/create_bookmark" class="form-inline" method="post">
                 
                 <input type="hidden" name="dish_id" value="<%= dish.id %>">
@@ -88,7 +93,7 @@
                   <i class="fa fa-heart"></i>
                 </button>
             </form>
-
+            <% end %>
 
           </td>
 

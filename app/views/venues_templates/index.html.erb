@@ -41,8 +41,10 @@
       <div class="card-body">
         <div id="location_map" style="height: 480px;"></div>
       </div>
-      <% current_user.bookmarked_venues.each do |venue| %>
+      <% @venues.each do |venue| %>
       <ul class="list-group list-group-flush">
+          
+        <% if  Bookmark.where(user_id: current_user.id, venue_id: venue.id).present? %>
           
           <li class="list-group-item">
             <a href="/venues/<%= venue.id %>">
@@ -53,10 +55,11 @@
                 <%= venue.neighborhood.name %>
               <% end %>
             </small>
-          </li>
-
-          <% end %>
-      </ul>
+        
+        <% end %>
+        
+         </ul>
+        <% end %>
 
 
       <div class="card-footer text-center">
