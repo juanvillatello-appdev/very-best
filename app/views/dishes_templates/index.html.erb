@@ -50,7 +50,7 @@
 
           </th>
         </tr>
-        <% @dishes.each do |dish| %>
+        <% Dish.all.order(name: :asc).each do |dish| %>
         <tr>
           <td>
             <a href="/dishes/<%= dish.id %>">
@@ -87,8 +87,6 @@
                 <% end %>
                </select>
               
-              
-              
                 <button class="btn btn-primary btn-sm">
                   <i class="fa fa-heart"></i>
                 </button>
@@ -120,4 +118,3 @@
     </a>
   </div>
 </div>
-
