@@ -82,7 +82,7 @@
 <script>
  var handler = Gmaps.build('Google');
 handler.buildMap({ internal: {id: 'multi_markers'}}, function(){
-  var markers = handler.addMarkers(<% @hash %>);
+  var markers = handler.addMarkers(<%= raw @hash.to_json %>);
   handler.bounds.extendWith(markers);
   handler.fitMapToBounds();
 });

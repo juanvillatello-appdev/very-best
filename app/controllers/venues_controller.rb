@@ -4,7 +4,7 @@ class VenuesController < ApplicationController
     @venues = @q.result(:distinct => true).includes(:bookmarks, :neighborhood, :fans, :specialists).page(params.fetch("page", nil))
     
     @hash = [] 
-    @venues.each do |venue|
+    @venues.where(user_id: current_user.id).each do |venue|
       
       direction = {}
       sanitized_street_address = URI.encode(venue.address)
