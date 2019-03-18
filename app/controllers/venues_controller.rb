@@ -4,7 +4,7 @@ class VenuesController < ApplicationController
     @venues = @q.result(:distinct => true).includes(:bookmarks, :neighborhood, :fans, :specialists).page(params.fetch("page", nil))
     
     @hash = [] 
-    @venues.where(user_id: current_user.id).each do |venue|
+    @venues.joins(:bookmarks).where("bookmarks.user_id = ?", current_user.id).uniq.each do |venue|
       
       direction = {}
       sanitized_street_address = URI.encode(venue.address)
@@ -14,6 +14,7 @@ class VenuesController < ApplicationController
       longitude = parsed_data.dig("results", 0, "geometry", "location", "lng")
       direction[:lat] = latitude
       direction[:lng] = longitude
+      direction[:infowindow] = "<h5><a href='/venues/#{venue.id}'>#{venue.name}</a></h5><small>#{venue.address}</small>"
       @hash << direction
       
     end  
@@ -24,6 +25,19 @@ class VenuesController < ApplicationController
   def show
     @bookmark = Bookmark.new
     @venue = Venue.find(params.fetch("id"))
+    
+    @hash = [] 
+      
+      direction = {}
+      sanitized_street_address = URI.encode(@venue.address)
+      url = "https://maps.googleapis.com/maps/api/geocode/json?address="+sanitized_street_address+"&key=AIzaSyBr-0XDfztIIUGyPRfa1D5KfPvURvAk2e4"
+      parsed_data = JSON.parse(open(url).read)
+      latitude = parsed_data.dig("results", 0, "geometry", "location", "lat")
+      longitude = parsed_data.dig("results", 0, "geometry", "location", "lng")
+      direction[:lat] = latitude
+      direction[:lng] = longitude
+      direction[:infowindow] = "<h5><a href='/venues/#{@venue.id}'>#{@venue.name}</a></h5><small>#{@venue.address}</small>"
+      @hash << direction
 
     render("venues_templates/show.html.erb")
   end

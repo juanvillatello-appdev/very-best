@@ -75,7 +75,7 @@
                 
                  <select name="venue_id" id="venue_id" class="form-control form-control-sm mr-sm-1">
                  <option value="">Choose a venue...</option>
-                 <% Venue.all.each do |venue| %>
+                 <% Venue.order(name: :asc).all.each do |venue| %>
                  
                                  <!-- Label and input for venue_id -->
                 <label for="venue_id" class="control-label sr-only">
